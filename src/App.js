@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { getInitialData } from "./utils/index";
+
+import PrivyNoterHeader from "./components/PrivyNoterHeader";
+import PrivyNoterBody from "./components/PrivyNoterBody";
 
 function App() {
+  const [query, setQuery] = useState("");
+  const [cariNotes, setCariNotes] = useState([]);
+  const [notes, setNotes] = useState(getInitialData());
+
+  const notesActive = (cariNotes || notes).filter((note) => !note.archived);
+  const notesArsip = (cariNotes || notes).filter((note) => note.archived);
+
+  useEffect(() => {
+    setCariNotes(
+      notes.filter((note) =>
+        note.title.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }, [query, notes]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="privy-noter-app">
+      <PrivyNoterHeader search={query} setQuery={setQuery} />
+      <PrivyNoterBody
+        notesActive={notesActive}
+        notesArsip={notesArsip}
+        setNotes={setNotes}
+      />
     </div>
   );
 }
