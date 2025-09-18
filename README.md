@@ -1,6 +1,3 @@
-Berikut contoh `README.md` yang bisa kamu pakai untuk proyek **My Privy Noter**. Kamu bisa sesuaikan nama bagian, deskripsi, teknis, dan lainnya sesuai kenyataan proyekmu.
-
----
 
 ````markdown
 # My Privy Noter
